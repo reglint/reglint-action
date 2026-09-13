@@ -1,6 +1,6 @@
 # reglint-action
 
-GitHub Action for [RegLint](https://github.com/iyaki/reglint) — a regex-based linter for source repositories. Runs `reglint analyze` with your YAML-defined rules and fails the step when matches meet the `fail-on` severity threshold.
+GitHub Action for [RegLint](https://github.com/reglint/reglint) — a regex-based linter for source repositories. Runs `reglint analyze` with your YAML-defined rules and fails the step when matches meet the `fail-on` severity threshold.
 
 ```yaml
 name: scan
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: iyaki/reglint-action@v1
+      - uses: reglint/reglint-action@v1
         with:
           fail-on: error
 ```
@@ -28,7 +28,7 @@ jobs:
 
 The action resolves the requested RegLint release, fetches `install.sh` from that exact immutable tag, and installs the checksum-verified binary to `~/.local/bin`. Pinning `tool-version` therefore pins the entire install chain — installer, checksums, and binary all come from the same release.
 
-Generate a starter config with `reglint init`, or see the [RegLint docs](https://github.com/iyaki/reglint#readme).
+Generate a starter config with `reglint init`, or see the [RegLint docs](https://github.com/reglint/reglint#readme).
 
 ## License
 

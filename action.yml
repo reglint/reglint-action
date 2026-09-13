@@ -32,7 +32,7 @@ runs:
       run: |
         v="${{ inputs.tool-version }}"
         if [ -z "$v" ] || [ "$v" = "latest" ]; then
-          v=$(basename "$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/iyaki/reglint/releases/latest)")
+          v=$(basename "$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/reglint/reglint/releases/latest)")
         fi
         v="v${v#v}"
         echo "tag=$v" >> "$GITHUB_OUTPUT"
@@ -42,7 +42,7 @@ runs:
       env:
         REGLINT_VERSION: ${{ steps.tool.outputs.tag }}
       run: |
-        curl -fsSL "https://raw.githubusercontent.com/iyaki/reglint/${{ steps.tool.outputs.tag }}/install.sh" | sh
+        curl -fsSL "https://raw.githubusercontent.com/reglint/reglint/${{ steps.tool.outputs.tag }}/install.sh" | sh
         echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
     - name: Run RegLint
