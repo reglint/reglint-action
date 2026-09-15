@@ -1,6 +1,10 @@
-# reglint-action
+# RegLint Action
 
-GitHub Action for [RegLint](https://github.com/reglint/reglint) — a regex-based linter for source repositories. Runs `reglint analyze` with your YAML-defined rules and reports findings as [GitHub Actions annotations](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions) (`::error` / `::warning` / `::notice`), failing the step when matches meet the `fail-on` severity threshold.
+[![Release](https://img.shields.io/github/v/release/reglint/reglint-action)](https://github.com/reglint/reglint-action/releases)
+
+Run [RegLint](https://github.com/reglint/reglint) — the regex-based linter with YAML-defined rules — in your GitHub Actions workflow and report findings as native PR annotations. Every match becomes an inline `::error` / `::warning` / `::notice` annotation on the exact file and line, and the step fails when matches meet the `fail-on` severity threshold. No token, no upload step, no extra permissions.
+
+## Usage
 
 ```yaml
 name: scan
@@ -15,7 +19,7 @@ jobs:
           fail-on: error
 ```
 
-## Inputs
+## What inputs does the action accept?
 
 | Input          | Description                                                 | Default              |
 | -------------- | ----------------------------------------------------------- | -------------------- |
@@ -24,13 +28,29 @@ jobs:
 | `paths`        | Paths to scan (space-separated)                             | `.`                  |
 | `fail-on`      | Fail if matches at or above severity (`error` or `warning`) | *(empty)*            |
 
-## How it works
+## How does the action work?
 
 The action resolves the requested RegLint release, fetches `install.sh` from that exact immutable tag, and installs the checksum-verified binary to `~/.local/bin`. Pinning `tool-version` therefore pins the entire install chain — installer, checksums, and binary all come from the same release.
 
 Annotations require RegLint v0.2.0+. With the default `tool-version: latest` this is automatic; pinning an older RegLint is only supported on action `v1.0.0` (console output).
 
-Generate a starter config with `reglint init`, or see the [RegLint docs](https://github.com/reglint/reglint#readme).
+## FAQ
+
+### Where do the findings show up?
+
+Inline in the PR "Files changed" view and in the workflow run summary, as native GitHub annotations on the exact file and line. GitHub caps annotations at 10 per severity per step; for the complete list, run RegLint with `--format json` or `--format sarif` as shown in the [RegLint CI recipes](https://github.com/reglint/reglint#ci-recipe-github-actions).
+
+### Does the action need a token or extra permissions?
+
+No. Annotations are workflow commands written to the step log, which the runner surfaces natively — default permissions with `contents: read` are enough.
+
+### How do I pin the RegLint version?
+
+Set `tool-version: v0.2.0` (for example). Pinning pins the whole install chain — installer, checksums, and binary all come from that single release. Annotations require RegLint v0.2.0+.
+
+### How do I define the rules?
+
+In a `reglint-rules.yaml` file committed to your repo (path configurable via the `config` input). Generate a starter with `reglint init`, or see the rule schema and examples in the [RegLint docs](https://github.com/reglint/reglint#readme).
 
 ## License
 
