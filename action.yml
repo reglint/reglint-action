@@ -1,9 +1,10 @@
-name: "RegLint"
-description: "Run RegLint regex scans with YAML-defined rules, SARIF output, and CI-friendly exit codes."
+name: "RegLint Action: regex lint rules with PR annotations"
+description: "Run RegLint regex scans defined in YAML and report findings as native GitHub PR annotations. Fails CI on a configurable severity threshold. No token or extra permissions required."
 author: "iyaki"
 branding:
   icon: "search"
   color: "blue"
+  # GitHub Marketplace categories (selected when publishing): primary "Code review", secondary "Continuous integration"
 
 inputs:
   tool-version:
