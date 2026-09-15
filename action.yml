@@ -57,4 +57,4 @@ runs:
           args="$args --fail-on $FAIL_ON"
         fi
         # $args and $PATHS are intentionally word-split.
-        reglint analyze --config "$CONFIG" $args $PATHS
+        reglint analyze --config "$CONFIG" --format github $args $PATHS
