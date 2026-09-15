@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: reglint/reglint-action@v1
+      - uses: reglint/reglint-action@v1.1.0
         with:
           fail-on: error
 ```
@@ -47,6 +47,10 @@ No. Annotations are workflow commands written to the step log, which the runner 
 ### How do I pin the RegLint version?
 
 Set `tool-version: v0.2.0` (for example). Pinning pins the whole install chain — installer, checksums, and binary all come from that single release. Annotations require RegLint v0.2.0+.
+
+### Which action version should I pin?
+
+Pin a full tag, e.g. `reglint/reglint-action@v1.1.0`. This action publishes full `vX.Y.Z` tags only — there is no moving major tag like `@v1` — so workflows always reference an exact, immutable version.
 
 ### How do I define the rules?
 
